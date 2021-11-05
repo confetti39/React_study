@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+let Box = styled.div`
+    padding: 20px;
+`;
+
+let Title = styled.h4`
+    font-size: 25px;
+    color: ${props => props.color}
+`;
 
 function Detail(props) {
 
     let { id } = useParams();
     let history = useHistory();
-
-    let findShoe = props.shoes.find(function (shoe) {
-        return shoe.id == id
-    });
+    let findShoe = props.shoes.find(shoe => shoe.id == id);
 
     return (
         <div className="container">
+
+            <Box>
+                <Title color={'red'}>Detail</Title>
+                <Title color='blue'>Detail</Title>
+            </Box>
+
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
