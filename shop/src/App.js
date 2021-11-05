@@ -9,6 +9,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 function App() {
 
   let [shoes, shoes변경] = useState(Data);
+  //중요한 데이터는 App에서 관리하는 것이 정석임.(상위 컴포넌트 -> 하위 컴포넌트)
 
   return (
     <div className="App">
@@ -32,7 +33,7 @@ function App() {
         </Container>
       </Navbar>
 
-
+      {/* 중복이 되면 맨 위에것만 매칭해서 보여줌 */}
       <Switch>
 
         {/* exact라는 속성 추가하면 경로가 정확히 일치할 때만 보여줌 */}
@@ -56,14 +57,12 @@ function App() {
         </Route>
 
 
-        <Route path="/detail">
-          <Detail />
+        <Route path="/detail/:id">
+          <Detail shoes={shoes} />
         </Route>
 
         <Route path="/:id">
-          <div>
-            아무거나 적었을 때 보여주는 것
-          </div>
+          <div>아무거나 적었을 때 보여주는 것</div>
         </Route>
 
         {/* <Route path="/어쩌구" component={Card}></Route> */}

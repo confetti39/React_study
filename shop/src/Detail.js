@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-function Detail() {
+function Detail(props) {
 
+    let { id } = useParams();
     let history = useHistory();
+
+    let findShoe = props.shoes.find(function (shoe) {
+        return shoe.id == id
+    });
 
     return (
         <div className="container">
@@ -12,9 +17,11 @@ function Detail() {
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
                 </div>
                 <div className="col-md-6 mt-4">
-                    <h4 className="pt-5">상품명</h4>
-                    <p>상품설명</p>
-                    <p>120000원</p>
+
+                    <h4 className="pt-5">{findShoe.title}</h4>
+                    <p>{findShoe.content}</p>
+                    <p>{findShoe.price}</p>
+
                     <button className="btn btn-danger">주문하기</button>
                     <button className="btn btn-danger" onClick={() => {
                         history.push('/'); //history.goBack();과 같음
