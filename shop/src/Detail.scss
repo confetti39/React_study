@@ -1,0 +1,43 @@
+$mainColor: #ff0000; //SASS 문법
+
+.red {
+  color: $mainColor;
+}
+
+@mixin func() {
+  background: #eeeeee;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+}
+
+.myAlert {
+  @include func();
+}
+
+.myAlertYellow {
+  @extend .myAlert;
+  background: #ffe591;
+}
+
+.myAlert p {
+  margin-bottom: 0;
+}
+
+// div.container h4 {
+//   color: blue;
+// }
+// div.container p {
+//   color: green;
+// }
+
+// div.container {
+//   h4 {
+//     color: blue;
+//   }
+//   p {
+//     color: green;
+//   }
+// }
