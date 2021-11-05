@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import Data from './data.js';
 import Detail from './Detail.js';
+import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
@@ -19,8 +20,10 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
+
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -49,10 +52,22 @@ function App() {
             <div className="row">
               {
                 shoes.map((a, i) => {
-                  return <Card shoes={shoes} i={i}></Card> //shoes = {a}도 사용 가능
+                  return <Card shoes={shoes} i={i} key={i}></Card> //shoes = {a}도 사용 가능
                 })
               }
             </div>
+
+            <button className="btn btn-primary" onClick={() => {
+
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result) => {
+                  setShoes([...shoes, ...result.data])
+                })
+                .catch(() => {
+                  console.log("실패");
+                })
+
+            }}>더보기</button>
           </div>
         </Route>
 
@@ -69,7 +84,7 @@ function App() {
 
       </Switch>
 
-    </div>
+    </div >
   );
 }
 
