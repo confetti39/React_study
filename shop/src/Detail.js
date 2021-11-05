@@ -14,16 +14,19 @@ let Title = styled.h4`
 
 function Detail(props) {
 
+    let { id } = useParams();
+    let history = useHistory();
+    let findShoe = props.shoes.find(shoe => shoe.id == id);
+    let [inputData, setInputData] = useState();
+    let [visible, setVisible] = useState(true);
+
     useEffect(() => {
         let timer = setTimeout(() => {
             setVisible(false);
         }, 2000)
-    });
 
-    let { id } = useParams();
-    let history = useHistory();
-    let findShoe = props.shoes.find(shoe => shoe.id == id);
-    let [visible, setVisible] = useState(true);
+        return () => { clearTimeout(timer) };
+    }, []); //그냥 컴포넌트 로드때만 한번 딱 실행하고 싶은 코드를 담을 때 쓸 수 있는 일종의 트릭쇼
 
     return (
         <div className="container">
@@ -32,6 +35,9 @@ function Detail(props) {
                 <Title className="red">Detail</Title>
                 {/* <Title color='blue'>Detail</Title> */}
             </Box>
+
+            {inputData}
+            <input onChange={(e) => { setInputData(e.target.value) }} />
 
             {
                 visible === true
