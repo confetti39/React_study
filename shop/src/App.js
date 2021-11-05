@@ -3,6 +3,8 @@ import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import Data from './data.js';
 
+import { Link, Route, Switch } from 'react-router-dom';
+
 function App() {
 
   let [shoes, shoes변경] = useState(Data);
@@ -30,23 +32,37 @@ function App() {
       </Navbar>
 
 
-      <div className="background">
-        <h1>20% season off</h1>
-        <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <p>
-          <Button variant="primary">Learn more</Button>
-        </p>
-      </div>
 
-      <div className="container">
-        <div className="row">
-          {
-            shoes.map((a, i) => {
-              return <Card shoes={shoes[i]} i={i}></Card>
-            })
-          }
+      {/* exact라는 속성 추가하면 경로가 정확히 일치할 때만 보여줌 */}
+      <Route exact path="/">
+        <div className="background">
+          <h1>20% season off</h1>
+          <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <p>
+            <Button variant="primary">Learn more</Button>
+          </p>
         </div>
-      </div>
+        <div className="container">
+          <div className="row">
+            {
+              shoes.map((a, i) => {
+                return <Card shoes={shoes} i={i}></Card> //shoes = {a}도 사용 가능
+              })
+            }
+          </div>
+        </div>
+      </Route>
+
+
+      <Route path="/detail">
+        <div>상세페이지</div>
+      </Route>
+
+
+      {/* <Route path="/어쩌구" component={Card}></Route> */}
+
+
+
     </div>
   );
 }
@@ -55,8 +71,8 @@ function Card(props) {
   return (
     <div className="col-md-4">
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="100%" />
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.content} & {props.shoes.price}원</p>
+      <h4>{props.shoes[props.i].title}</h4>
+      <p>{props.shoes[props.i].content} & {props.shoes[props.i].price}원</p>
     </div >
   )
 }
