@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
@@ -14,9 +14,16 @@ let Title = styled.h4`
 
 function Detail(props) {
 
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setVisible(false);
+        }, 2000)
+    });
+
     let { id } = useParams();
     let history = useHistory();
     let findShoe = props.shoes.find(shoe => shoe.id == id);
+    let [visible, setVisible] = useState(true);
 
     return (
         <div className="container">
@@ -26,10 +33,15 @@ function Detail(props) {
                 {/* <Title color='blue'>Detail</Title> */}
             </Box>
 
-            <div className="myAlertYellow">
-                <p>재고가 얼마 남지 않았습니다!</p>
-            </div>
-
+            {
+                visible === true
+                    ?
+                    <div className="myAlertYellow">
+                        <p>재고가 얼마 남지 않았습니다!</p>
+                    </div>
+                    :
+                    null
+            }
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />

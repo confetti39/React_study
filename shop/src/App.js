@@ -8,7 +8,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
 
-  let [shoes, shoes변경] = useState(Data);
+  let [shoes, setShoes] = useState(Data);
   //중요한 데이터는 App에서 관리하는 것이 정석임.(상위 컴포넌트 -> 하위 컴포넌트)
 
   return (
@@ -19,8 +19,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
-              <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
