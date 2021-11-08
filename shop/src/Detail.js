@@ -3,6 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
 import { stockContext } from './App.js'
+import { Nav } from 'react-bootstrap';
+
+import { CSSTransition } from 'react-transition-group';
 
 let Box = styled.div`
     padding: 20px;
@@ -21,6 +24,8 @@ function Detail(props) {
     let [inputData, setInputData] = useState();
     let [visible, setVisible] = useState(true);
     let stock = useContext(stockContext);
+    let [touchedTab, setTouchedTab] = useState(0);
+    let [switch1, setSwitch] = useState(false);
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -76,8 +81,42 @@ function Detail(props) {
 
                 </div>
             </div>
-        </div>
+
+
+            <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+                <Nav.Item>
+                    <Nav.Link eventKey="link-0" onClick={() => { setSwitch(false); setTouchedTab(0); }}>Option 1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1" onClick={() => { setSwitch(false); setTouchedTab(1); }}>Option 2</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-2" onClick={() => { setSwitch(false); setTouchedTab(2); }}>Option 3</Nav.Link>
+                </Nav.Item>
+            </Nav>
+
+            {/* 애니메이션 필요한 곳 감싸기 */}
+            <CSSTransition in={switch1} classNames="animation" timeout={500}>
+                <TabContent touchedTab={touchedTab} setSwitch={setSwitch}></TabContent>
+            </CSSTransition>
+
+
+        </div >
     )
+}
+function TabContent(props) {
+
+    useEffect(() => {
+        props.setSwitch(true);
+    });
+
+    if (props.touchedTab === 0) {
+        return <div>0번째 내용입니다.</div>
+    } else if (props.touchedTab === 1) {
+        return <div>1번째 내용입니다.</div>
+    } else if (props.touchedTab === 2) {
+        return <div>2번째 내용입니다.</div>
+    }
 }
 
 function Stock(props) {
