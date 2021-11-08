@@ -11,6 +11,7 @@ function App() {
 
   let [shoes, setShoes] = useState(Data);
   let [loading, setLoading] = useState(false);
+  let [stock, setStock] = useState([10, 11, 12]); //재고 데이터
   //중요한 데이터는 App에서 관리하는 것이 정석임.(상위 컴포넌트 -> 하위 컴포넌트)
 
   return (
@@ -88,7 +89,7 @@ function App() {
 
 
         <Route path="/detail/:id">
-          <Detail shoes={shoes} />
+          <Detail shoes={shoes} stock={stock} setStock={setStock} />
         </Route>
 
         <Route path="/:id">

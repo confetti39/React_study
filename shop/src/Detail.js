@@ -58,13 +58,29 @@ function Detail(props) {
                     <p>{findShoe.content}</p>
                     <p>{findShoe.price}</p>
 
-                    <button className="btn btn-danger">주문하기</button>
+                    <Stock stock={props.stock}></Stock>
+
+                    <button className="btn btn-danger" onClick={() => {
+                        const newArray = [...props.stock];
+                        newArray[0]--;
+                        if (newArray[0] < 0) {
+                            newArray[0] = 0;
+                        }
+                        props.setStock(newArray)
+                    }}>주문하기</button>
                     <button className="btn btn-danger" onClick={() => {
                         history.push('/'); //history.goBack();과 같음
                     }}>뒤로가기</button>
+
                 </div>
             </div>
         </div>
+    )
+}
+
+function Stock(props) {
+    return (
+        <p>재고: {props.stock[0]}</p>
     )
 }
 

@@ -13,6 +13,10 @@ $mainColor: #ff0000; //SASS 문법
   margin: auto;
 }
 
+.btn {
+  margin-left: 5px;
+}
+
 .myAlert {
   @include func();
 }
