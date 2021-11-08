@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
+import { stockContext } from './App.js'
 
 let Box = styled.div`
     padding: 20px;
@@ -19,6 +20,7 @@ function Detail(props) {
     let findShoe = props.shoes.find(shoe => shoe.id == id);
     let [inputData, setInputData] = useState();
     let [visible, setVisible] = useState(true);
+    let stock = useContext(stockContext);
 
     useEffect(() => {
         let timer = setTimeout(() => {

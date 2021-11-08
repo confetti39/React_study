@@ -1,11 +1,13 @@
 import './App.css';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
+
+export let stockContext = React.createContext();
 
 function App() {
 
@@ -51,16 +53,18 @@ function App() {
             </p>
           </div>
           <div className="container">
-            <div className="row">
-              {
-                shoes.map((a, i) => {
-                  return <Card shoes={shoes} i={i} key={i}></Card> //shoes = {a}도 사용 가능
-                })
-              }
-            </div>
+
+            <stockContext.Provider value={stock}>
+              <div className="row">
+                {
+                  shoes.map((a, i) => {
+                    return <Card shoes={shoes} i={i} key={i}></Card> //shoes = {a}도 사용 가능
+                  })
+                }
+              </div>
+            </stockContext.Provider>
 
             <button className="btn btn-primary" onClick={() => {
-
 
               setLoading(true)
               axios.get('https://codingapple1.github.io/shop/data2.json')
@@ -89,7 +93,9 @@ function App() {
 
 
         <Route path="/detail/:id">
-          <Detail shoes={shoes} stock={stock} setStock={setStock} />
+          <stockContext.Provider value={stock}>
+            <Detail shoes={shoes} stock={stock} setStock={setStock} />
+          </stockContext.Provider>
         </Route>
 
         <Route path="/:id">
@@ -107,13 +113,22 @@ function App() {
 
 
 function Card(props) {
+  let stock = useContext(stockContext);
+
   return (
     <div className="col-md-4">
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="100%" />
       <h4>{props.shoes[props.i].title}</h4>
       <p>{props.shoes[props.i].content} & {props.shoes[props.i].price}원</p>
+      {stock[props.i]}
+      <Test></Test>
     </div >
   )
+}
+
+function Test() {
+  let stock = useContext(stockContext);
+  return <p>재고: {stock}</p> //재고: 101112
 }
 
 export default App;
