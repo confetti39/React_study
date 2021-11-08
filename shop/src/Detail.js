@@ -36,8 +36,8 @@ function Detail(props) {
                 {/* <Title color='blue'>Detail</Title> */}
             </Box>
 
-            {inputData}
-            <input onChange={(e) => { setInputData(e.target.value) }} />
+            {/* {inputData}
+            <input onChange={(e) => { setInputData(e.target.value) }} /> */}
 
             {
                 visible === true

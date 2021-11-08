@@ -10,6 +10,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 function App() {
 
   let [shoes, setShoes] = useState(Data);
+  let [loading, setLoading] = useState(false);
   //중요한 데이터는 App에서 관리하는 것이 정석임.(상위 컴포넌트 -> 하위 컴포넌트)
 
   return (
@@ -59,15 +60,29 @@ function App() {
 
             <button className="btn btn-primary" onClick={() => {
 
+
+              setLoading(true)
               axios.get('https://codingapple1.github.io/shop/data2.json')
                 .then((result) => {
+                  // console.log(result.data);
+                  setLoading(false);
                   setShoes([...shoes, ...result.data])
                 })
                 .catch(() => {
+                  setLoading(false);
                   console.log("실패");
                 })
 
             }}>더보기</button>
+
+            {
+              loading === true
+                ?
+                <p>로딩중</p>
+                :
+                null
+            }
+
           </div>
         </Route>
 
