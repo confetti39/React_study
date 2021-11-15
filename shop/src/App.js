@@ -4,7 +4,7 @@ import React, { useState, useContext } from 'react';
 import Data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
-
+import Cart from './Cart.js';
 import { Link, Route, Switch } from 'react-router-dom';
 
 export let stockContext = React.createContext();
@@ -98,9 +98,15 @@ function App() {
           </stockContext.Provider>
         </Route>
 
+        <Route path="/cart">
+          <Cart></Cart>
+        </Route>
+
         <Route path="/:id">
           <div>아무거나 적었을 때 보여주는 것</div>
         </Route>
+
+
 
         {/* <Route path="/어쩌구" component={Card}></Route> */}
 
