@@ -32,13 +32,22 @@ function Cart(props) {
                     }
                 </tbody>
             </Table>
+            {props.alertState === true
+                ?
+                <div className="myAlertYellow">
+                    <p>지금 구매하시면 신규할인 20%!</p>
+                    <button onClick={() => { props.dispatch({ type: '닫기' }) }}>닫기</button>
+                </div>
+                : null
+            }
         </div>
     )
 }
 
 function 함수명(state) {
     return {
-        state: state //state라는 이름의 props로 바꿈
+        state: state.reducer, //state라는 이름의 props로 바꿈
+        alertState: state.reducer2
     }
 }
 export default connect(함수명)(Cart);
