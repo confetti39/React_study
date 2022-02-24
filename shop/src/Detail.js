@@ -75,9 +75,10 @@ function Detail(props) {
                         if (newArray[0] < 0) {
                             newArray[0] = 0;
                         }
-                        props.setStock(newArray)
-
-                        props.dispatch({ type: '항목추가', payload: { name: props.shoes[props.i] } });
+                        props.setStock(newArray);
+                        let productId = window.location.pathname.split('/').pop();
+                        console.log(props.shoes[productId].title);
+                        props.dispatch({ type: '항목추가', payload: { id: productId, name: props.shoes[productId].title, quan: 1 } });
                         history.push('/cart');
 
                     }}>주문하기</button>
