@@ -6,6 +6,7 @@ import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
 import { Link, Route, Switch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export let stockContext = React.createContext();
 
@@ -20,7 +21,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Shoe Shop</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Shoe Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -59,7 +60,7 @@ function App() {
               <div className="row">
                 {
                   shoes.map((a, i) => {
-                    return <Card shoes={shoes} i={i} key={i}></Card> //shoes = {a}도 사용 가능
+                    return <Card shoes={shoes[i]} i={i} key={i}></Card> //shoes = {a}도 사용 가능
                   })
                 }
               </div>
@@ -121,13 +122,17 @@ function App() {
 
 function Card(props) {
   let stock = useContext(stockContext);
+  let history = useHistory();
 
   return (
-    <div className="col-md-4">
+    <div className="col-md-4" onClick={() => {
+      console.log(props.shoes);
+      history.push('/detail/' + props.shoes.id)
+    }}>
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width="100%" />
-      <h4>{props.shoes[props.i].title}</h4>
-      <p>{props.shoes[props.i].content} & {props.shoes[props.i].price}원</p>
-      {stock[props.i]}
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.content} & {props.shoes.price}원</p>
+      {stock}
       <Test></Test>
     </div >
   )

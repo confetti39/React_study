@@ -5,7 +5,9 @@ import './Detail.scss';
 import { stockContext } from './App.js'
 import { Nav } from 'react-bootstrap';
 
+
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
 let Box = styled.div`
     padding: 20px;
@@ -57,7 +59,7 @@ function Detail(props) {
             }
             <div className="row">
                 <div className="col-md-6">
-                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                    <img src={'https://codingapple1.github.io/shop/shoes' + (parseInt(window.location.pathname.split("/").pop()) + 1) + '.jpg'} width="100%" />
                 </div>
                 <div className="col-md-6 mt-4">
 
@@ -74,6 +76,10 @@ function Detail(props) {
                             newArray[0] = 0;
                         }
                         props.setStock(newArray)
+
+                        props.dispatch({ type: '항목추가', payload: { name: props.shoes[props.i] } });
+                        history.push('/cart');
+
                     }}>주문하기</button>
                     <button className="btn btn-danger" onClick={() => {
                         history.push('/'); //history.goBack();과 같음
@@ -125,4 +131,10 @@ function Stock(props) {
     )
 }
 
-export default Detail;
+function 함수명(state) {
+    return {
+        state: state.reducer, //state라는 이름의 props로 바꿈
+        alertState: state.reducer2
+    }
+}
+export default connect(함수명)(Detail)
