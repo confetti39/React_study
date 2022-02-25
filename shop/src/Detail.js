@@ -77,7 +77,6 @@ function Detail(props) {
                         }
                         props.setStock(newArray);
                         let productId = window.location.pathname.split('/').pop();
-                        console.log(props.shoes[productId].title);
                         props.dispatch({ type: '항목추가', payload: { id: productId, name: props.shoes[productId].title, quan: 1 } });
                         history.push('/cart');
 

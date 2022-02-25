@@ -19,21 +19,18 @@ function reducer2(state = alertDefault, action) {
   }
 }
 
-let defaultState = [
-  { id: 0, name: '멋진신발', quan: 2 },
-  { id: 1, name: '예쁜신발', quan: 3 }
-];
-
+let defaultState = [];
 function reducer(state = defaultState, action) {
   if (action.type === '항목추가') {
-    if (action.payload.name in defaultState) {
-      let copy = [...state];
+    let copy = [...state];
+    let foundIndex = state.findIndex((a) => { return a.id === action.payload.id })
+    if (foundIndex >= 0) {
+      copy[foundIndex].quan++;
+      return copy;
+    } else {
+      copy.push(action.payload);
       return copy;
     }
-    let copy = [...state];
-    copy.push(action.payload);
-    // console.log(copy);
-    return copy;
   }
   else if (action.type === '수량증가') {
     let copy = [...state];
