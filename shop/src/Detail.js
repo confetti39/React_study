@@ -28,7 +28,7 @@ function Detail(props) {
     let stock = useContext(stockContext);
     let [touchedTab, setTouchedTab] = useState(0);
     let [switch1, setSwitch] = useState(false);
-    let [quan, setQuan] = useState(0);
+    let [quan, setQuan] = useState(1);
     const onChangeQuan = (e) => {
         setQuan(e.target.value);
     }
