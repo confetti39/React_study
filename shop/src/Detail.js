@@ -69,6 +69,7 @@ function Detail(props) {
 
                     <Stock stock={props.stock}></Stock>
 
+
                     <button className="btn btn-danger" onClick={() => {
                         const newArray = [...props.stock];
                         newArray[0]--;

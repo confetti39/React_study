@@ -25,7 +25,7 @@ function reducer(state = defaultState, action) {
     let copy = [...state];
     let foundIndex = state.findIndex((a) => { return a.id === action.payload.id })
     if (foundIndex >= 0) {
-      copy[foundIndex].quan++;
+      copy[foundIndex].quan = copy[foundIndex].quan + action.payload.quan;
       return copy;
     } else {
       copy.push(action.payload);
@@ -43,6 +43,12 @@ function reducer(state = defaultState, action) {
       return copy;
     }
     copy[action.id].quan--;
+    return copy;
+  }
+  else if (action.type === '항목삭제') {
+    let copy = [...state];
+    let foundIndex = state.findIndex((a) => { return a.id === action.id });
+    delete copy[foundIndex];
     return copy;
   }
   else {
