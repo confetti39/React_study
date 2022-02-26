@@ -49,6 +49,7 @@ function reducer(state = defaultState, action) {
     let copy = [...state];
     let foundIndex = state.findIndex((a) => { return a.id === action.id });
     delete copy[foundIndex];
+    //항목삭제하고 재고 수량 다시 맞춰주는 코드 필요함
     return copy;
   }
   else {
