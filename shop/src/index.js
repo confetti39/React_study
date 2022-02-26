@@ -25,7 +25,7 @@ function reducer(state = defaultState, action) {
     let copy = [...state];
     let foundIndex = state.findIndex((a) => { return a.id === action.payload.id })
     if (foundIndex >= 0) {
-      copy[foundIndex].quan = copy[foundIndex].quan + action.payload.quan;
+      copy[foundIndex].quan = parseInt(copy[foundIndex].quan) + parseInt(action.payload.quan);
       return copy;
     } else {
       copy.push(action.payload);
@@ -34,22 +34,29 @@ function reducer(state = defaultState, action) {
   }
   else if (action.type === '수량증가') {
     let copy = [...state];
-    copy[action.id].quan++;
+    let foundIndex = state.findIndex((a) => { return a.id === action.id })
+    copy[foundIndex].quan++;
     return copy;
   }
   else if (action.type === '수량감소') {
     let copy = [...state];
-    if (copy[action.id].quan === 0) {
+    let foundIndex = state.findIndex((a) => { return a.id === action.id })
+    if (copy[foundIndex].quan === 0) {
       return copy;
     }
-    copy[action.id].quan--;
+    copy[foundIndex].quan--;
     return copy;
   }
   else if (action.type === '항목삭제') {
     let copy = [...state];
     let foundIndex = state.findIndex((a) => { return a.id === action.id });
-    delete copy[foundIndex];
+    console.log(copy);
+    copy.shift(foundIndex);
+    //배열에서 첫번째 요소를 제거하고 반환한다. -> 배열 항목에서 요소가 삭제됨
+    // unshift : 첫번째 요소로 추가
+
     //항목삭제하고 재고 수량 다시 맞춰주는 코드 필요함
+    console.log(copy);
     return copy;
   }
   else {
