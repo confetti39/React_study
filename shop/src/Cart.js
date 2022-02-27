@@ -10,6 +10,7 @@ function Cart(props) {
                     <tr>
                         <th>#</th>
                         <th>상품명</th>
+                        <th>사이즈</th>
                         <th>수량</th>
                         <th>변경</th>
                     </tr>
@@ -21,11 +22,12 @@ function Cart(props) {
                                 <tr key={i}>
                                     <td>{a.id}</td>
                                     <td>{a.name}</td>
+                                    <td>{a.size}</td>
                                     <td>{a.quan}</td>
                                     <td>
-                                        <button onClick={() => { props.dispatch({ type: '수량증가', id: a.id }) }}>+</button>
-                                        <button onClick={() => { props.dispatch({ type: '수량감소', id: a.id }) }}>-</button>
-                                        <button onClick={() => { props.dispatch({ type: '항목삭제', id: a.id }) }}>🗑</button>
+                                        <button onClick={() => { props.dispatch({ type: '수량증가', id: a.id, size: a.size }) }}>+</button>
+                                        <button onClick={() => { props.dispatch({ type: '수량감소', id: a.id, size: a.size }) }}>-</button>
+                                        <button onClick={() => { props.dispatch({ type: '항목삭제', id: a.id, size: a.size }) }}>🗑</button>
                                     </td>
                                 </tr>
                             )

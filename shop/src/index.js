@@ -23,7 +23,7 @@ let defaultState = [];
 function reducer(state = defaultState, action) {
   if (action.type === '항목추가') {
     let copy = [...state];
-    let foundIndex = state.findIndex((a) => { return a.id === action.payload.id })
+    let foundIndex = state.findIndex((a) => { return (a.id === action.payload.id && a.size === action.payload.size) })
     if (foundIndex >= 0) {
       copy[foundIndex].quan = parseInt(copy[foundIndex].quan) + parseInt(action.payload.quan);
       return copy;
@@ -34,13 +34,13 @@ function reducer(state = defaultState, action) {
   }
   else if (action.type === '수량증가') {
     let copy = [...state];
-    let foundIndex = state.findIndex((a) => { return a.id === action.id })
+    let foundIndex = state.findIndex((a) => { return a.id === action.id && a.size === action.size })
     copy[foundIndex].quan++;
     return copy;
   }
   else if (action.type === '수량감소') {
     let copy = [...state];
-    let foundIndex = state.findIndex((a) => { return a.id === action.id })
+    let foundIndex = state.findIndex((a) => { return a.id === action.id && a.size === action.size })
     if (copy[foundIndex].quan === 0) {
       return copy;
     }

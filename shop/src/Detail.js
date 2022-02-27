@@ -29,8 +29,13 @@ function Detail(props) {
     let [touchedTab, setTouchedTab] = useState(0);
     let [switch1, setSwitch] = useState(false);
     let [quan, setQuan] = useState(1);
+    let [size, setSize] = useState('S');
     const onChangeQuan = (e) => {
         setQuan(e.target.value);
+    }
+
+    function handleOnChange(e) {
+        setSize(e.target.value);
     }
 
     useEffect(() => {
@@ -73,7 +78,14 @@ function Detail(props) {
 
                     <Stock stock={props.stock}></Stock>
 
-                    <input type="text" onChange={onChangeQuan} placeholder="주문수량" id="quan" name="quan" required minLength="1" maxlength="10"></input>
+                    <input type="text" onChange={onChangeQuan} placeholder="주문수량" id="quan" name="quan" required minLength="1" maxlength="10" />
+                    <select name="size" onChange={handleOnChange}>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                    </select>
+                    <br />
+                    <br />
                     <button type="submit" className="btn btn-danger" onClick={() => {
                         const newArray = [...props.stock];
                         newArray[0]--;
@@ -82,7 +94,7 @@ function Detail(props) {
                         }
                         props.setStock(newArray);
                         let productId = window.location.pathname.split('/').pop();
-                        props.dispatch({ type: '항목추가', payload: { id: productId, name: props.shoes[productId].title, quan: quan } });
+                        props.dispatch({ type: '항목추가', payload: { id: productId, name: props.shoes[productId].title, quan: quan, size: size } });
                         history.push('/cart');
 
                     }}>주문하기</button>
