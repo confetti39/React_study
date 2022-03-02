@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.recentProduct {
+  background-color: aliceblue;
+  margin-top: 10px;
+  padding: 20px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
