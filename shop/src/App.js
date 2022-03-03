@@ -9,9 +9,11 @@ import { Link, Route, Switch } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export let stockContext = React.createContext();
+
 localStorage.setItem("recent", JSON.stringify([]));
 const output = localStorage.getItem("recent");
 const arr = JSON.parse(output);
+const reverseArr = [...arr].reverse();
 
 function App() {
 
@@ -63,7 +65,7 @@ function App() {
               <h4>watched recently</h4>
               <div className="row">
                 {
-                  arr.map((a, i) => {
+                  arr.reverse().map((a, i) => {
                     return <Recent shoes={shoes[a]} i={i} key={i}></Recent>
                   })
                 }
@@ -142,9 +144,9 @@ function Card(props) {
     <div className="col-md-4" onClick={() => {
       // localStorge에 저장된 배열의 원소 개수가 3개일 경우 
       // 1. 추가하려는 원소가 배열에 포함되어 있는지 확인하고
-      // 포함되어 있다면 그 원소를 지우고, 맨 뒤에 새로 추가한다
+      // 포함되어 있다면 그 원소를 지우고, 맨 앞에 새로 추가한다
       // 2. 추가하려는 원소가 배열에 포함되어 있지 않다면
-      // 그냥 맨 앞에 있는 원소 지우고 맨 뒤에 새로운 원소를 추가한다.
+      // 그냥 맨 뒤에 있는 원소 지우고 맨 앞에 새로운 원소를 추가한다.
 
       // localStorge에 저장된 배열의 원소 개수가 3개 미만일 경우
       // 추가하려는 원소가 배열에 포함되어 있다면 삭제하지도 않고 추가하지도 않음
@@ -154,11 +156,11 @@ function Card(props) {
           const index = arr.indexOf(props.shoes.id);
           console.log(index);
           arr.splice(index, 1);
-          arr.push(props.shoes.id);
+          arr.unshift(props.shoes.id);
         }
         else {
-          arr.shift(); //맨 앞 원소 삭제
-          arr.push(props.shoes.id); //배열 맨 뒤에 원소 추가
+          arr.pop(); //맨 뒤 원소 삭제
+          arr.unshift(props.shoes.id); //배열 맨 앞에 원소 추가
         }
       } else {
         if (arr.indexOf(props.shoes.id) >= 0) {
@@ -166,7 +168,7 @@ function Card(props) {
           console.log(index);
           arr.splice(index, 1);
         }
-        arr.push(props.shoes.id);
+        arr.unshift(props.shoes.id);
       }
       localStorage.setItem("recent", JSON.stringify(arr));
       console.log(arr);
@@ -186,12 +188,11 @@ function Recent(props) {
   let history = useHistory();
   return (
     <div className="col-md-4" onClick={() => {
-
       // localStorge에 저장된 배열의 원소 개수가 3개일 경우 
       // 1. 추가하려는 원소가 배열에 포함되어 있는지 확인하고
-      // 포함되어 있다면 그 원소를 지우고, 맨 뒤에 새로 추가한다
+      // 포함되어 있다면 그 원소를 지우고, 맨 앞에 새로 추가한다
       // 2. 추가하려는 원소가 배열에 포함되어 있지 않다면
-      // 그냥 맨 앞에 있는 원소 지우고 맨 뒤에 새로운 원소를 추가한다.
+      // 그냥 맨 뒤에 있는 원소 지우고 맨 앞에 새로운 원소를 추가한다.
 
       // localStorge에 저장된 배열의 원소 개수가 3개 미만일 경우
       // 추가하려는 원소가 배열에 포함되어 있다면 삭제하지도 않고 추가하지도 않음
@@ -201,11 +202,11 @@ function Recent(props) {
           const index = arr.indexOf(props.shoes.id);
           console.log(index);
           arr.splice(index, 1);
-          arr.push(props.shoes.id);
+          arr.unshift(props.shoes.id);
         }
         else {
-          arr.shift(); //맨 앞 원소 삭제
-          arr.push(props.shoes.id); //배열 맨 뒤에 원소 추가
+          arr.pop(); //맨 뒤 원소 삭제
+          arr.unshift(props.shoes.id); //배열 맨 앞에 원소 추가
         }
       } else {
         if (arr.indexOf(props.shoes.id) >= 0) {
@@ -213,7 +214,7 @@ function Recent(props) {
           console.log(index);
           arr.splice(index, 1);
         }
-        arr.push(props.shoes.id);
+        arr.unshift(props.shoes.id);
       }
       localStorage.setItem("recent", JSON.stringify(arr));
       console.log(arr);
