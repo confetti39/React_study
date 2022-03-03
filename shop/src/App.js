@@ -1,6 +1,6 @@
 import './App.css';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
@@ -10,6 +10,8 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export let stockContext = React.createContext();
 localStorage.setItem("recent", JSON.stringify([]));
+const output = localStorage.getItem("recent");
+const arr = JSON.parse(output);
 
 function App() {
 
@@ -58,7 +60,14 @@ function App() {
           <div className="container">
 
             <div className="recentProduct">
-              <h6>recent</h6>
+              <h4>watched recently</h4>
+              <div className="row">
+                {
+                  arr.map((a, i) => {
+                    return <Recent shoes={shoes[a]} i={i} key={i}></Recent>
+                  })
+                }
+              </div>
             </div>
 
             <stockContext.Provider value={stock}>
@@ -131,8 +140,6 @@ function Card(props) {
 
   return (
     <div className="col-md-4" onClick={() => {
-      const output = localStorage.getItem("recent");
-      const arr = JSON.parse(output);
       // localStorge에 저장된 배열의 원소 개수가 3개일 경우 
       // 1. 추가하려는 원소가 배열에 포함되어 있는지 확인하고
       // 포함되어 있다면 그 원소를 지우고, 맨 뒤에 새로 추가한다
@@ -172,6 +179,52 @@ function Card(props) {
       <p>{props.shoes.content} & {props.shoes.price}원</p>
       {/* <Test></Test> */}
     </div >
+  )
+}
+
+function Recent(props) {
+  let history = useHistory();
+  return (
+    <div className="col-md-4" onClick={() => {
+
+      // localStorge에 저장된 배열의 원소 개수가 3개일 경우 
+      // 1. 추가하려는 원소가 배열에 포함되어 있는지 확인하고
+      // 포함되어 있다면 그 원소를 지우고, 맨 뒤에 새로 추가한다
+      // 2. 추가하려는 원소가 배열에 포함되어 있지 않다면
+      // 그냥 맨 앞에 있는 원소 지우고 맨 뒤에 새로운 원소를 추가한다.
+
+      // localStorge에 저장된 배열의 원소 개수가 3개 미만일 경우
+      // 추가하려는 원소가 배열에 포함되어 있다면 삭제하지도 않고 추가하지도 않음
+      // 추가하려는 원소가 배열에 포함되어 있지 않다면 바로 추가함.
+      if (arr.length >= 3) {
+        if (arr.indexOf(props.shoes.id) >= 0) {
+          const index = arr.indexOf(props.shoes.id);
+          console.log(index);
+          arr.splice(index, 1);
+          arr.push(props.shoes.id);
+        }
+        else {
+          arr.shift(); //맨 앞 원소 삭제
+          arr.push(props.shoes.id); //배열 맨 뒤에 원소 추가
+        }
+      } else {
+        if (arr.indexOf(props.shoes.id) >= 0) {
+          const index = arr.indexOf(props.shoes.id);
+          console.log(index);
+          arr.splice(index, 1);
+        }
+        arr.push(props.shoes.id);
+      }
+      localStorage.setItem("recent", JSON.stringify(arr));
+      console.log(arr);
+
+      // console.log(props.shoes);
+      history.push('/detail/' + props.shoes.id);
+    }}>
+      <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id + 1) + '.jpg'} width="50%" />
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.content} & {props.shoes.price}원</p>
+    </div>
   )
 }
 

@@ -3,9 +3,12 @@
 }
 
 .recentProduct {
-  background-color: aliceblue;
+  border-style: dotted;
+  border-width: 5px;
+  border-color: aliceblue;
   margin-top: 10px;
   padding: 20px;
+  color: cornflowerblue;
 }
 
 .App-logo {
