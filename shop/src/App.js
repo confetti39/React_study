@@ -31,7 +31,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
 
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Nav.Link as={Link} to="/" onClick={() => { setShoes([...shoes]) }}>Home</Nav.Link>
               <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
               <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
 
@@ -55,9 +55,7 @@ function App() {
           <div className="background">
             <h1>20% season off</h1>
             <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <p>
-              <Button variant="primary">Learn more</Button>
-            </p>
+
           </div>
           <div className="container">
 
@@ -65,7 +63,7 @@ function App() {
               <h4>watched recently</h4>
               <div className="row">
                 {
-                  arr.reverse().map((a, i) => {
+                  arr.map((a, i) => {
                     return <Recent shoes={shoes[a]} i={i} key={i}></Recent>
                   })
                 }
@@ -96,12 +94,12 @@ function App() {
                   console.log("실패");
                 })
 
-            }}>더보기</button>
+            }}>View More</button>
 
             {
               loading === true
                 ?
-                <p>로딩중</p>
+                <p>Loading</p>
                 :
                 null
             }
@@ -112,7 +110,7 @@ function App() {
 
         <Route path="/detail/:id">
           <stockContext.Provider value={stock}>
-            <Detail shoes={shoes} stock={stock} setStock={setStock} />
+            <Detail shoes={shoes} setShoes={setShoes} stock={stock} setStock={setStock} />
           </stockContext.Provider>
         </Route>
 

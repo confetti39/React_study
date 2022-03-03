@@ -99,6 +99,7 @@ function Detail(props) {
 
                     }}>주문하기</button>
                     <button className="btn btn-danger" onClick={() => {
+                        props.setShoes([...props.shoes]);
                         history.push('/'); //history.goBack();과 같음
                     }}>뒤로가기</button>
 
