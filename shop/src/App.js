@@ -5,6 +5,7 @@ import Data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
+import ImageSlider from './ImageSlider.js';
 import { Link, Route, Switch } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
@@ -52,11 +53,13 @@ function App() {
 
         {/* exact라는 속성 추가하면 경로가 정확히 일치할 때만 보여줌 */}
         <Route exact path="/">
-          <div className="background">
+          {/* <div className="background">
             <h1>20% season off</h1>
             <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 
-          </div>
+          </div> */}
+          <div><ImageSlider /></div>
+
           <div className="container">
 
             <div className="recentProduct">
