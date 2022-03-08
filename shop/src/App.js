@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand as={Link} to="/">Shoe Shop</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/" onClick={() => { setShoes([...shoes]) }}> Shoe Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -63,7 +63,7 @@ function App() {
           <div className="container">
 
             <div className="recentProduct">
-              <h4>watched recently</h4>
+              <h4>WATCHED</h4>
               <div className="row">
                 {
                   arr.map((a, i) => {
@@ -224,8 +224,8 @@ function Recent(props) {
       history.push('/detail/' + props.shoes.id);
     }}>
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id + 1) + '.jpg'} width="50%" />
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.content} & {props.shoes.price}원</p>
+      {/* <p>{props.shoes.title}</p>
+      <p>{props.shoes.content} & {props.shoes.price}원</p> */}
     </div>
   )
 }

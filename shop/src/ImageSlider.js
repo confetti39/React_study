@@ -5,6 +5,12 @@ import { customMedia } from "./GlobalStyles";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import banner1 from "./banner1.png";
+import banner2 from "./banner2.png";
+import banner3 from "./banner3.png";
+import banner4 from "./banner4.png";
+
+
 export default class SimpleSlider extends Component {
     render() {
         const settings = {
@@ -19,24 +25,10 @@ export default class SimpleSlider extends Component {
 
             < Wrapper >
                 <StyledSlider {...settings}>
-                    <div>
-                        <h3>1</h3>
-                    </div>
-                    <div>
-                        <h3>2</h3>
-                    </div>
-                    <div>
-                        <h3>3</h3>
-                    </div>
-                    <div>
-                        <h3>4</h3>
-                    </div>
-                    <div>
-                        <h3>5</h3>
-                    </div>
-                    <div>
-                        <h3>6</h3>
-                    </div>
+                    <Image src={banner1}></Image>
+                    <Image src={banner2}></Image>
+                    <Image src={banner3}></Image>
+                    <Image src={banner4}></Image>
                 </StyledSlider>
             </Wrapper >
 
@@ -88,4 +80,9 @@ const StyledSlider = styled(Slider)`
       height: 220px;
     `}
 	}
+`;
+
+const Image = styled.img`
+    width:50%;
+    
 `;
